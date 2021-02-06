@@ -4,15 +4,20 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/UserModel");
+const Company = require("../models/CompanyModel");
 
-router.post("/user/signup", async (req, res) => {
-  const { username, email, password } = req.body;
+router.post("/company/signup", async (req, res) => {
+  const { companyname, email, password } = req.body;
 
   const errors = {};
-  // Validacao de nome de usuario: é obrigatório, tem que ser do tipo string e não pode ter mais de 50 caracteres
-  if (!username || typeof username !== "string" || username.length > 50) {
-    errors.username = "Username is required and should be 50 characters max.";
+  // Validacao de nome da companhia: é obrigatório, tem que ser do tipo string e não pode ter mais de 50 caracteres
+  if (
+    !companyname ||
+    typeof companyname !== "string" ||
+    companyname.length > 50
+  ) {
+    errors.companyname =
+      "Company name is required and should be 50 characters max.";
   }
 
   // Tem que ser um email valido, é obrigatório
@@ -44,9 +49,7 @@ router.post("/user/signup", async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const result = await User.create({ email, username, passwordHash });
-
-    console.log(result);
+    const result = await User.create({ email, companyname, passwordHash });
 
     return res.status(201).json(result);
   } catch (err) {
@@ -56,52 +59,53 @@ router.post("/user/signup", async (req, res) => {
     } else if (err.code === 11000) {
       return res.status(400).json({
         error:
-          "Name and email need to be unique. Either username or email is already being used.",
+          "Name and email need to be unique. Either Company name or email is already used.",
       });
     }
   }
 });
 
-router.post("/user/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+router.post("/company/login", (req, res, next) => {
+  passport.authenticate("local", (err, company, info) => {
     if (err) {
       return res.status(500).json({ msg: err });
     }
 
     // Caso este email não esteja cadastrado ou a senha esteja divergente
-    if (!user || info) {
+    if (!company || info) {
       return res.status(401).json({ msg: info.message });
     }
 
-    req.login(user, { session: false }, (err) => {
+    req.login(company, { session: false }, (err) => {
       if (err) {
         console.error(err);
         return next(err);
       }
 
-      const { username, email, _id } = user;
-      const userObj = { username, email, _id };
-      const token = jwt.sign({ user: userObj }, process.env.TOKEN_SIGN_SECRET);
+      const { companyname, email, _id } = company;
+      const companyObj = { companyname, email, _id };
+      const token = jwt.sign(
+        { company: companyObj },
+        process.env.TOKEN_SIGN_SECRET
+      );
 
-      return res.status(200).json({ user: userObj, token });
+      return res.status(200).json({ company: companyObj, token });
     });
   })(req, res, next);
 });
 
 router.get(
-  "/user/profile",
+  "/company/profile",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      console.log(req.user);
+      console.log(req.company);
 
-      const result = await User.findOne({ _id: req.user._id }).populate(
-        "pagesCreated"
-      );
+      const result = await Company.findOne({ _id: req.company._id });
 
       return res
         .status(200)
-        .json({ message: "This is a protected route", user: result });
+        .json({ message: "This is a protected route", company: result });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ msg: err });
@@ -111,42 +115,24 @@ router.get(
 
 //Edit Profile
 router.patch(
-  "/user/profile/:id",
+  "/company/profile/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
       const { id } = req.params;
 
-      const {
-        username,
-        email,
-        gender,
-        description,
-        firstName,
-        lastName,
-        areas,
-      } = req.body;
+      const { companyname, email } = req.body;
 
-      const result = await User.findOneAndUpdate(
+      const result = await Company.findOneAndUpdate(
         { _id: id },
-        {
-          $set: {
-            username: username,
-            email: email,
-            gender: gender,
-            description: description,
-            firstName: firstName,
-            lastName: lastName,
-            areas: areas,
-          },
-        },
+        { $set: { companyname: companyname, email: email } },
         { new: true }
       );
 
       if (result) {
         return res.status(200).json({ result });
       }
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ msg: "Company not found." });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ msg: err });
@@ -156,13 +142,13 @@ router.patch(
 
 //Delete Profile
 router.delete(
-  "/user/profile/:id",
+  "/company/profile/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
       const { id } = req.params;
 
-      const result = await User.findOneAndDelete({ _id: id });
+      const result = await Company.findOneAndDelete({ _id: id });
 
       return res.status(204).json({});
     } catch (err) {

@@ -8,10 +8,22 @@ app.use(express.json());
 
 app.use(cors({ origin: "*" }));
 require("./config/db.config")();
-require("./config/passport.config")(app);
+require("./config/userpassport.config")(app);
 
 const userRouter = require("./routes/user.routes");
 app.use("/api", userRouter);
+
+const companyRouter = require("./routes/company.routes");
+app.use("/api", companyRouter);
+
+const bigChallengeRouter = require("./routes/bigchallenge.routes");
+app.use("/api", bigChallengeRouter);
+
+const challengeRouter = require("./routes/challenge.routes");
+app.use("/api", challengeRouter);
+
+const groupRouter = require("./routes/group.routes");
+app.use("/api", groupRouter);
 
 app.listen(process.env.PORT),
   () => {
