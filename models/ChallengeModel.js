@@ -4,15 +4,12 @@ const ChallengeSchema = new Schema(
   {
     name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    company: {
-      type: Schema.Types.ObjectId,
-      autopopulate: true,
-      required: true,
-      default: "Hackatanga",
-    },
+    company: { type: String, default: "Hackatanga" },
     beginDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
+    rules: { type: String },
     areas: [{ type: String, required: true }],
+    available: { type: Boolean, default: true },
     participants: [{ type: Schema.Types.ObjectId, autopopulate: true }],
   },
   {

@@ -20,18 +20,14 @@ const UserSchema = new Schema(
       ],
     },
     areas: [{ type: String }],
-    bigChallengesAttended: [
+    bigChallenges: [
       { type: Schema.Types.ObjectId, ref: "BigChallenge", autopopulate: true },
     ],
-    bigChallengesDoing: [
-      { type: Schema.Types.ObjectId, ref: "BigChallenge", autopopulate: true },
-    ],
-    challengesAttended: [
+    challenges: [
       { type: Schema.Types.ObjectId, ref: "Challenge", autopopulate: true },
     ],
-    challengesDoing: [
-      { type: Schema.Types.ObjectId, ref: "Challenge", autopopulate: true },
-    ],
+    groups: [{ type: Schema.Types.ObjectId, ref: "Group", autopopulate: true }],
+    feedbacks: [{ type: Schema.Types.ObjectId, autopopulate: true }],
   },
   {
     toJSON: {

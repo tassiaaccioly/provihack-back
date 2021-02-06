@@ -8,13 +8,13 @@ app.use(express.json());
 
 app.use(cors({ origin: "*" }));
 require("./config/db.config")();
-require("./config/userpassport.config")(app);
+require("./config/passport.config")(app);
 
 const userRouter = require("./routes/user.routes");
 app.use("/api", userRouter);
 
-const companyRouter = require("./routes/company.routes");
-app.use("/api", companyRouter);
+const registerRouter = require("./routes/register.routes");
+app.use("/api", registerRouter);
 
 const bigChallengeRouter = require("./routes/bigchallenge.routes");
 app.use("/api", bigChallengeRouter);
@@ -25,7 +25,6 @@ app.use("/api", challengeRouter);
 const groupRouter = require("./routes/group.routes");
 app.use("/api", groupRouter);
 
-app.listen(process.env.PORT),
-  () => {
-    console.log(`Server up an running on PORT ${process.env.PORT}`);
-  };
+app.listen(process.env.PORT, () => {
+  console.log(`Server up an running on PORT ${process.env.PORT}`);
+});

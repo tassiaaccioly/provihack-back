@@ -3,8 +3,6 @@ const { Schema, model } = require("mongoose");
 const CompanySchema = new Schema(
   {
     companyname: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
     description: { type: String, required: true },
     website: { type: String, required: true },
     linkedin: { type: String },

@@ -4,9 +4,10 @@ const GroupSchema = new Schema(
   {
     challenge: { type: Schema.Types.ObjectId, autopopulate: true },
     groupNumber: { type: Number, required: true },
+    groupAreas: [{ type: String }],
     deliverables: [{ type: String }],
-    ranking: { type: number },
-    feedback: { type: String },
+    ranking: { type: Number },
+    feedback: { type: Schema.Types.ObjectId, autopopulate: true },
     members: [{ type: Schema.Types.ObjectId, autopopulate: true }],
   },
   {
