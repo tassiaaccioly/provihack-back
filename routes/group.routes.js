@@ -8,6 +8,7 @@ const Group = require("../models/GroupModel");
 const BigChallenge = require("../models/BigChallengeModel");
 const Feedback = require("../models/FeedbackModel");
 
+//criando um grupo
 router.post(
   "/group/:id",
   passport.authenticate("jwt", { session: false }),
@@ -15,28 +16,28 @@ router.post(
     try {
       const { groupNumber } = req.body;
 
+      //removendo o id do challenge da URL
       const challengeId = req.params.id;
 
       const errors = {};
 
+      //Validando o grupo
       if (!groupNumber) {
         errors.groupNumber = "Group number is required";
       }
 
-      // Se o objeto errors tiver propriedades (chaves), retorne as mensagens de erro
+      // Se o objeto errors tiver propriedades retorne as mensagens de erro
       if (Object.keys(errors).length) {
         return res.status(400).json({ errors });
       }
 
+      //criando o grupo
       const result = await Group.create({
         ...req.body,
         challenge: challengeId,
       });
 
-      const challenge = await BigChallenge.findOne({ _id: challengeId });
-
-      const groups = challenge.groups;
-
+      //adicionando o grupo à array de grupos do challenge
       await BigChallenge.findOneAndUpdate(
         { _id: challengeId },
         { $push: { groups: result._id } },
@@ -53,16 +54,19 @@ router.post(
   }
 );
 
-//pegar todos os grupos de um challenge específico
+//pegando todos os grupos de um desafio específico
 router.get(
   "/groups/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
+      //salvando o id do challenge da URL
       const challengeId = req.params.id;
 
+      //encontrando o challenge
       const result = await BigChallenge.findOne({ _id: challengeId });
 
+      //separando os grupos do challenge para poder retornar (os grupos já vem populados da database)
       const groups = result.groups;
 
       return res.status(200).json({ groups });
@@ -79,9 +83,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
+      //resgatando o id do grupo da URL
       const groupId = req.params.id;
 
-      const result = await Challenge.find({ _id: groupId });
+      //encontrando o grupo específico através do id
+      const result = await Group.find({ _id: groupId });
 
       return res.status(200).json({ result });
     } catch (err) {
@@ -97,19 +103,24 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
+      //resgatando o id do grupo da url
       const groupId = req.params.id;
 
+      //resgatando o id da companhia do token
       const companyId = req.company._id;
 
+      //encontrando o grupo para poder retirar dele o id do challenge
       const group = await Group.findOne({ _id: id });
 
+      //postando o feedback
       const feedback = await Feedback.create({
         ...req.body,
         company: companyId,
-        challenge: group.challenge,
+        challenge: group.challenge._id,
         group: groupId,
       });
 
+      //adicionando o id do feedback no perfil de cada pessoa do grupo
       if (group) {
         group.members.forEach(async (member) => {
           try {

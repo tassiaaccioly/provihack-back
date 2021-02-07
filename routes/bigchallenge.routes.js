@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const BigChallenge = require("../models/BigChallengeModel");
 
+//Adicionando um desafio na Database
 router.post(
   "/bigchallenge",
   passport.authenticate("jwt", { session: false }),
@@ -63,7 +64,7 @@ router.post(
         errors.endDate = "End Date is required and should be a valid date";
       }
 
-      // Se o objeto errors tiver propriedades (chaves), retorne as mensagens de erro
+      // Se o objeto errors tiver propriedades, retorne as mensagens de erro
       if (Object.keys(errors).length) {
         return res.status(400).json({ errors });
       }
@@ -80,6 +81,7 @@ router.post(
   }
 );
 
+//Resgatando os desafios disponíveis na plataforma
 router.get(
   "/bigchallenge",
   passport.authenticate("jwt", { session: false }),
@@ -95,6 +97,7 @@ router.get(
   }
 );
 
+//tornando um desafio indisponível para a plataforma, mas mantendo ele na database
 router.delete(
   "bigchallenge/:id",
   passport.authenticate("jwt", { session: false }),

@@ -9,6 +9,7 @@ const Challenge = require("../models/ChallengeModel");
 const User = require("../models/UserModel");
 const Group = require("../models/GroupModel");
 
+//registrando para um challenge grande
 router.post(
   "/register/bigchallenge/:id",
   passport.authenticate("jwt", { session: false }),
@@ -51,6 +52,7 @@ router.post(
   }
 );
 
+//Registrando para um challenge pequeno
 router.post(
   "/register/challenge/:id",
   passport.authenticate("jwt", { session: false }),
@@ -62,15 +64,15 @@ router.post(
 
       await Challenge.findOneAndUpdate(
         { _id: challengeId },
-        { $set: { participants: [...participants, userId] } },
+        { $push: { participants: userId } },
         { new: true }
       );
 
       const userResult = await User.findOneAndUpdate(
         { _id: userId },
         {
-          $set: {
-            challenges: [...challenges, challengeId],
+          $push: {
+            challenges: challengeId,
           },
         },
         { new: true }
