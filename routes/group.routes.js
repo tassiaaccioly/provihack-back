@@ -30,11 +30,16 @@ router.post(
 
       const result = await Group.create({
         ...req.body,
+        challenge: challengeId,
       });
+
+      const challenge = await BigChallenge.findOne({ _id: challengeId });
+
+      const groups = challenge.groups;
 
       await BigChallenge.findOneAndUpdate(
         { _id: challengeId },
-        { $set: { groups: [...groups, result._id] } },
+        { $push: { groups: result._id } },
         { new: true }
       );
 
@@ -56,7 +61,7 @@ router.get(
     try {
       const challengeId = req.params.id;
 
-      const result = await Challenge.find({ _id: challengeId });
+      const result = await BigChallenge.findOne({ _id: challengeId });
 
       const groups = result.groups;
 
@@ -110,7 +115,7 @@ router.post(
           try {
             await User.findOneAndUpdate(
               { _id: member._id },
-              { $set: { feedbacks: [...feedbacks, feedback._id] } },
+              { $push: { feedbacks: feedback._id } },
               { new: true }
             );
           } catch (error) {

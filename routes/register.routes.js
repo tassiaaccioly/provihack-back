@@ -22,22 +22,22 @@ router.post(
 
       await BigChallenge.findOneAndUpdate(
         { _id: challengeId },
-        { $set: { participants: [...participants, userId] } },
+        { $push: { participants: userId } },
         { new: true }
       );
 
       await Group.findOneAndUpdate(
         { _id: groupId },
-        { $set: { members: [...members, userId] } },
+        { $push: { members: userId } },
         { new: true }
       );
 
       const userResult = await User.findOneAndUpdate(
         { _id: userId },
         {
-          $set: {
-            bigChallenges: [...bigChallenges, challengeId],
-            groups: [...groups, groupId],
+          $push: {
+            bigChallenges: challengeId,
+            groups: groupId,
           },
         },
         { new: true }
