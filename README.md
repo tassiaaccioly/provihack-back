@@ -54,6 +54,8 @@ Essas são as mulheres maravilhosas por trás desse projeto:
 
 [<img align="left" alt="mariana-maiko | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-re]
 
+<br /><br /><br /><br />
+
 _Esse projeto foi desenvolvido em 48h e faz parte do Hackaton **Provi Hack Woman** realizado pela **Provi** e diversos parceiros do dia 04/02/2021 ao dia 12/02/2021_
 
 [linkedin-tassia]: https://www.linkedin.com/in/tassiaaccioly
