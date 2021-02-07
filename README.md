@@ -1,4 +1,4 @@
-<img width="450px" align="center" src="./assets/logo_hackatanga.svg" />
+<img width="400px" align="center" src="./assets/logo_hackatanga.svg" />
 
 # Hackatanga - Backend
 
@@ -26,33 +26,33 @@ Essas são as mulheres maravilhosas por trás desse projeto:
 
 **Tassia Accioly - Back-end e Front-end**
 
-[<img align="left" alt="tassiaaccioly | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-tassia]
-[<img align="left" alt="tassiaaccioly | GitHub" width="22px" src="./assets/github.svg" />][github-tassia]
+[<img align="left" alt="tassiaaccioly | LinkedIn" width="38px" src="./assets/linkedin.svg" />][linkedin-tassia]
+[<img align="left" alt="tassiaaccioly | GitHub" width="38px" src="./assets/github.svg" />][github-tassia]
 
 <br /><br />
 
 **Mariana Maiko - Front-end**
 
-[<img align="left" alt="mariana-maiko | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-mari]
-[<img align="left" alt="Marimaiko | GitHub" width="22px" src="./assets/github.svg" />][github-mari]
+[<img align="left" alt="mariana-maiko | LinkedIn" width="38px" src="./assets/linkedin.svg" />][linkedin-mari]
+[<img align="left" alt="Marimaiko | GitHub" width="38px" src="./assets/github.svg" />][github-mari]
 
 <br /><br />
 
 **Juliana Felippe - UX/UI Designer**
 
-[<img align="left" alt="Juliana Felippe | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-ju]
+[<img align="left" alt="Juliana Felippe | LinkedIn" width="38px" src="./assets/linkedin.svg" />][linkedin-ju]
 
 <br /><br />
 
 **Laura Santos - Product Owner**
 
-[<img align="left" alt="Laura Santos | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-laura]
+[<img align="left" alt="Laura Santos | LinkedIn" width="38px" src="./assets/linkedin.svg" />][linkedin-laura]
 
 <br /><br />
 
 **Renata Piauí - Data**
 
-[<img align="left" alt="mariana-maiko | LinkedIn" width="22px" src="./assets/linkedin.svg" />][linkedin-re]
+[<img align="left" alt="mariana-maiko | LinkedIn" width="38px" src="./assets/linkedin.svg" />][linkedin-re]
 
 <br /><br /><br /><br />
 
