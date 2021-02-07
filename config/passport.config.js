@@ -51,7 +51,6 @@ function configurePassport(app) {
   passport.use(
     new JWTStrategy(
       {
-        // Não esquecer de criar variável de ambiente com secret para assinatura dos tokens JWT
         secretOrKey: process.env.TOKEN_SIGN_SECRET,
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       },
