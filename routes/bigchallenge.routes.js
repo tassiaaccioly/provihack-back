@@ -82,24 +82,35 @@ router.post(
 );
 
 //Resgatando os desafios disponíveis na plataforma
-router.get(
-  "/bigchallenge",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    try {
-      const result = await BigChallenge.find({ available: true });
+router.get("/bigchallenge", async (req, res) => {
+  try {
+    const result = await BigChallenge.find({ available: true });
 
-      return res.status(200).json({ result });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ msg: err });
-    }
+    return res.status(200).json({ result });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: err });
   }
-);
+});
+
+//Resgatando um desafio específico na plataforma
+router.get("/bigchallenge/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await (await BigChallenge.findOne({ _id: id })).populate(
+      "groups"
+    );
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: err });
+  }
+});
 
 //tornando um desafio indisponível para a plataforma, mas mantendo ele na database
 router.delete(
-  "bigchallenge/:id",
+  "/bigchallenge/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {

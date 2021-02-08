@@ -4,9 +4,9 @@ const FeedbackSchema = new Schema(
   {
     feedback: { type: String, required: true },
     strongPoints: [{ type: String, required: true }],
-    company: { type: Schema.Types.ObjectId, autopopulate: true },
-    challenge: { type: Schema.Types.ObjectId, autopopulate: true },
-    group: { type: Schema.Types.ObjectId, autopopulate: true },
+    company: { type: Schema.Types.ObjectId },
+    challenge: { type: Schema.Types.ObjectId },
+    group: { type: Schema.Types.ObjectId },
   },
   {
     toJSON: {
@@ -17,8 +17,6 @@ const FeedbackSchema = new Schema(
     },
   }
 );
-
-FeedbackSchema.plugin(require("mongoose-autopopulate"));
 
 const FeedbackModel = model("Feedback", FeedbackSchema);
 

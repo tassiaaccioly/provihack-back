@@ -2,13 +2,13 @@ const { Schema, model } = require("mongoose");
 
 const GroupSchema = new Schema(
   {
-    challenge: { type: Schema.Types.ObjectId, autopopulate: true },
+    challenge: { type: Schema.Types.ObjectId },
     groupNumber: { type: Number, required: true },
     groupAreas: [{ type: String }],
     deliverables: [{ type: String }],
     ranking: { type: Number },
-    feedback: { type: Schema.Types.ObjectId, autopopulate: true },
-    members: [{ type: Schema.Types.ObjectId, autopopulate: true }],
+    feedback: { type: Schema.Types.ObjectId },
+    members: [{ type: Schema.Types.ObjectId }],
   },
   {
     toJSON: {
@@ -19,8 +19,6 @@ const GroupSchema = new Schema(
     },
   }
 );
-
-GroupSchema.plugin(require("mongoose-autopopulate"));
 
 const GroupModel = model("Group", GroupSchema);
 

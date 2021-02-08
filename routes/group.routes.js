@@ -55,47 +55,41 @@ router.post(
 );
 
 //pegando todos os grupos de um desafio específico
-router.get(
-  "/groups/:id",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    try {
-      //salvando o id do challenge da URL
-      const challengeId = req.params.id;
+router.get("/groups/:id", async (req, res) => {
+  try {
+    //salvando o id do challenge da URL
+    const challengeId = req.params.id;
 
-      //encontrando o challenge
-      const result = await BigChallenge.findOne({ _id: challengeId });
+    //encontrando o challenge
+    const result = await (
+      await BigChallenge.findOne({ _id: challengeId })
+    ).populate("groups");
 
-      //separando os grupos do challenge para poder retornar (os grupos já vem populados da database)
-      const groups = result.groups;
+    //separando os grupos do challenge para poder retornar
+    const groups = result.groups;
 
-      return res.status(200).json({ groups });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ msg: err });
-    }
+    return res.status(200).json({ groups });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: err });
   }
-);
+});
 
 //pegar um grupo específico
-router.get(
-  "/group/:id",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    try {
-      //resgatando o id do grupo da URL
-      const groupId = req.params.id;
+router.get("/group/:id", async (req, res) => {
+  try {
+    //resgatando o id do grupo da URL
+    const groupId = req.params.id;
 
-      //encontrando o grupo específico através do id
-      const result = await Group.find({ _id: groupId });
+    //encontrando o grupo específico através do id
+    const result = await Group.findOne({ _id: groupId });
 
-      return res.status(200).json({ result });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ msg: err });
-    }
+    return res.status(200).json({ result });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: err });
   }
-);
+});
 
 //postar Feedbacks
 router.post(

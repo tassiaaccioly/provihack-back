@@ -20,14 +20,10 @@ const UserSchema = new Schema(
       ],
     },
     areas: [{ type: String }],
-    bigChallenges: [
-      { type: Schema.Types.ObjectId, ref: "BigChallenge", autopopulate: true },
-    ],
-    challenges: [
-      { type: Schema.Types.ObjectId, ref: "Challenge", autopopulate: true },
-    ],
-    groups: [{ type: Schema.Types.ObjectId, ref: "Group", autopopulate: true }],
-    feedbacks: [{ type: Schema.Types.ObjectId, autopopulate: true }],
+    bigChallenges: [{ type: Schema.Types.ObjectId, ref: "BigChallenge" }],
+    challenges: [{ type: Schema.Types.ObjectId, ref: "Challenge" }],
+    groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
+    feedbacks: [{ type: Schema.Types.ObjectId }],
   },
   {
     toJSON: {
@@ -38,8 +34,6 @@ const UserSchema = new Schema(
     },
   }
 );
-
-UserSchema.plugin(require("mongoose-autopopulate"));
 
 const UserModel = model("User", UserSchema);
 

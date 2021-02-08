@@ -22,7 +22,7 @@ const ChallengeSchema = new Schema(
     ],
     areas: [{ type: String, required: true }],
     available: { type: Boolean, default: true },
-    participants: [{ type: Schema.Types.ObjectId, autopopulate: true }],
+    participants: [{ type: Schema.Types.ObjectId }],
   },
   {
     toJSON: {
@@ -33,8 +33,6 @@ const ChallengeSchema = new Schema(
     },
   }
 );
-
-ChallengeSchema.plugin(require("mongoose-autopopulate"));
 
 const ChallengeModel = model("Challenge", ChallengeSchema);
 

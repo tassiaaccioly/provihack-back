@@ -15,10 +15,11 @@ const BigChallengeSchema = new Schema(
     maxParticipantsPerGroup: { type: Number, required: true },
     maxGroups: { type: Number },
     rules: { type: String },
+
     areas: [{ type: String, required: true }],
     available: { type: Boolean, default: true },
-    participants: [{ type: Schema.Types.ObjectId, autopopulate: true }],
-    groups: [{ type: Schema.Types.ObjectId, autopopulate: true }],
+    participants: [{ type: Schema.Types.ObjectId }],
+    groups: [{ type: Schema.Types.ObjectId }],
   },
   {
     toJSON: {
@@ -29,8 +30,6 @@ const BigChallengeSchema = new Schema(
     },
   }
 );
-
-BigChallengeSchema.plugin(require("mongoose-autopopulate"));
 
 const BigChallengeModel = model("BigChallenge", BigChallengeSchema);
 

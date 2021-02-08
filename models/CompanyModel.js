@@ -7,7 +7,7 @@ const CompanySchema = new Schema(
     website: { type: String, required: true },
     linkedin: { type: String },
     partnerSince: { type: Date, default: new Date().getYear() + 1900 },
-    challenges: [{ type: Schema.Types.ObjectId, autopopulate: true }],
+    challenges: [{ type: Schema.Types.ObjectId }],
   },
   {
     toJSON: {
@@ -18,8 +18,6 @@ const CompanySchema = new Schema(
     },
   }
 );
-
-CompanySchema.plugin(require("mongoose-autopopulate"));
 
 const CompanyModel = model("Company", CompanySchema);
 
