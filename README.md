@@ -63,5 +63,5 @@ _Esse projeto foi desenvolvido em 48h e faz parte do Hackaton **Provi Hack Woman
 [linkedin-mari]: https://www.linkedin.com/in/mariana-maiko-tsukasaki-717336bb/
 [github-mari]: https://github.com/Marimaiko
 [linkedin-ju]: https://www.linkedin.com/in/
-[linkedin-laura]: https://www.linkedin.com/in/
+[linkedin-laura]: https://www.linkedin.com/in/laurasantosdeoliveira
 [linkedin-re]: https://www.linkedin.com/in/renata-borges-a11881110
